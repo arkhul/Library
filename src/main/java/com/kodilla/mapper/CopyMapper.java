@@ -1,0 +1,34 @@
+package com.kodilla.mapper;
+
+import com.kodilla.domain.Copy;
+import com.kodilla.dto.CopyDto;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class CopyMapper {
+
+    public Copy mapToCopy(CopyDto copyDto) {
+        return new Copy(
+                copyDto.getId(),
+                copyDto.getTitle(),
+                copyDto.getStatus()
+        );
+    }
+
+    public CopyDto mapToCopyDto(final Copy copy) {
+        return new CopyDto(
+                copy.getId(),
+                copy.getTitle(),
+                copy.getStatus()
+        );
+    }
+
+    public List<CopyDto> mapToCopyDtoList(final List<Copy> copyList) {
+        return copyList.stream()
+                .map(this::mapToCopyDto)
+                .collect(Collectors.toList());
+    }
+}
