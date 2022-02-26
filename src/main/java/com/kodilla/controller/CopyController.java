@@ -4,12 +4,12 @@ import com.kodilla.domain.Copy;
 import com.kodilla.domain.Title;
 import com.kodilla.dto.CopyDto;
 import com.kodilla.exception.CopyNotFoundException;
+import com.kodilla.exception.TitleNotFoundException;
 import com.kodilla.exception.TitleNotFoundException2;
 import com.kodilla.mapper.CopyMapper;
 import com.kodilla.service.CopyDbService;
 import com.kodilla.service.TitleDbService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,9 +31,12 @@ public class CopyController {
         return ResponseEntity.ok(copyMapper.mapToCopyDtoList(copies));
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createCopy(@RequestBody CopyDto copyDto) {
-        Copy copy = copyMapper.mapToCopy(copyDto);
+    // dodanie egzemlparza
+    @PostMapping("{titleId}/{status}")
+    public ResponseEntity<Void> createCopy(@PathVariable int titleId, @PathVariable String status)
+            throws TitleNotFoundException {
+        Title title = titleDbService.getTitle(titleId);
+        Copy copy = new Copy(title, status);
         copyDbService.saveCopy(copy);
         return ResponseEntity.ok().build();
     }
@@ -50,12 +53,12 @@ public class CopyController {
 
     // sprawdzenie ilości egzemplarzy ksiązki szukając po tytule, gdy nie znaleziono to rzucamy odpowiedni wyjątek
     @GetMapping("getQtyOf/{title}")
-    public ResponseEntity<Integer> getQuantityOfCopies(@PathVariable String title) throws TitleNotFoundException2 {
+    public ResponseEntity<String> getQuantityOfCopies(@PathVariable String title) throws TitleNotFoundException2 {
         Optional<Title> result = Optional.ofNullable(titleDbService.getTitle(title));
         if (result.isPresent()) {
             int titleId = titleDbService.getTitle(title).getId();
             List<Copy> copies = copyDbService.getQuantityOfCopiesTo_Borrow(titleId);
-            return ResponseEntity.ok(copies.size());
+            return ResponseEntity.ok("There is " + copies.size() + " copies of \"" + title + "\" to borrow");
         } else {
             throw new TitleNotFoundException2();
         }

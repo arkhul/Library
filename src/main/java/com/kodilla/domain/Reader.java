@@ -36,7 +36,7 @@ public class Reader {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private final List<Borrow> borrowList = new ArrayList<>();
+    private List<Borrow> borrowList = new ArrayList<>();
 
     public Reader(final int id, final String name) {
         this.id = id;

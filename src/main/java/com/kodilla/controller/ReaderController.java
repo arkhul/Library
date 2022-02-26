@@ -41,9 +41,9 @@ public class ReaderController {
 
     @PutMapping
     public ResponseEntity<ReaderDto> updateReader(@RequestBody ReaderDto readerDto) {
-        Reader reader = readerMapper.mapToReaderPut(readerDto);
+        Reader reader = readerMapper.mapToReader(readerDto);
         Reader savedReader = readerDbService.saveReader(reader);
-        return ResponseEntity.ok(readerMapper.mapToReaderDtoPut(savedReader));
+        return ResponseEntity.ok(readerMapper.mapToReaderDto(savedReader));
     }
 
     @DeleteMapping("{readerId}")

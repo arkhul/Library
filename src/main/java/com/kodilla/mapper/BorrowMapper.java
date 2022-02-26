@@ -2,25 +2,23 @@ package com.kodilla.mapper;
 
 import com.kodilla.domain.Borrow;
 import com.kodilla.dto.BorrowDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class BorrowMapper {
 
-    public Borrow mapToBorrow(BorrowDto borrowDto) {
-        return new Borrow(
-                borrowDto.getReader(),
-                borrowDto.getCopy()
-        );
-    }
-
-    public BorrowDto mapToBorrowDto(Borrow borrow) {
+    public BorrowDto mapToBorrowDto(final Borrow borrow) {
         return new BorrowDto(
-                borrow.getReader(),
-                borrow.getCopy()
+                borrow.getId(),
+                borrow.getReader().getName(),
+                borrow.getCopy().getTitle().getTitle(),
+                borrow.getBorrowDate(),
+                borrow.getReturnDate()
         );
     }
 

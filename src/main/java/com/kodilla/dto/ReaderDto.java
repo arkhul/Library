@@ -14,10 +14,4 @@ public class ReaderDto {
     private int id;
     private String name;
     private LocalDate accountCreationDate;
-
-    public ReaderDto(final int id, final String name) {
-        this.id = id;
-        this.name = name;
-        this.accountCreationDate = LocalDate.now();
-    }
 }

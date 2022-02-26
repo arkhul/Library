@@ -17,22 +17,7 @@ public class ReaderMapper {
         );
     }
 
-    public Reader mapToReaderPut(final ReaderDto readerDto) {
-        return new Reader(
-                readerDto.getId(),
-                readerDto.getName(),
-                readerDto.getAccountCreationDate()
-        );
-    }
-
     public ReaderDto mapToReaderDto(final Reader reader) {
-        return new ReaderDto(
-                reader.getId(),
-                reader.getName()
-        );
-    }
-
-    public ReaderDto mapToReaderDtoPut(final Reader reader) {
         return new ReaderDto(
                 reader.getId(),
                 reader.getName(),

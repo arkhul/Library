@@ -10,18 +10,10 @@ import java.util.stream.Collectors;
 @Service
 public class CopyMapper {
 
-    public Copy mapToCopy(CopyDto copyDto) {
-        return new Copy(
-                copyDto.getId(),
-                copyDto.getTitle(),
-                copyDto.getStatus()
-        );
-    }
-
     public CopyDto mapToCopyDto(final Copy copy) {
         return new CopyDto(
                 copy.getId(),
-                copy.getTitle(),
+                copy.getTitle().getTitle(),
                 copy.getStatus()
         );
     }

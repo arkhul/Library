@@ -1,6 +1,5 @@
 package com.kodilla.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +11,6 @@ import java.util.List;
 @Getter
 @Entity
 @Table (name = "TITLES")
-@AllArgsConstructor
 @NoArgsConstructor
 public class Title {
 
@@ -39,5 +37,13 @@ public class Title {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private final List<Copy> copyList = new ArrayList<>();
+    private List<Copy> copyList = new ArrayList<>();
+
+    public Title(final int id, final String title, final String author, final int publicationYear) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publicationYear = publicationYear;
+    }
 }
+

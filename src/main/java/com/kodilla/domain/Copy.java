@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 )
 @Getter
 @Entity
-@Table (name = "COPIES")
+@Table(name = "COPIES")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Copy {
@@ -25,12 +25,17 @@ public class Copy {
     private int id;
 
     @ManyToOne
-    @JoinColumn (name = "TITLE_ID")
+    @JoinColumn(name = "TITLE_ID")
     private Title title;
 
     @NotNull
-    @Column (name = "STATUS")
+    @Column(name = "STATUS")
     private String status;
+
+    public Copy(final Title title, final String status) {
+        this.title = title;
+        this.status = status;
+    }
 
     public void setStatus(final String status) {
         this.status = status;

@@ -2,13 +2,18 @@ package com.kodilla.mapper;
 
 import com.kodilla.domain.Title;
 import com.kodilla.dto.TitleDto;
+import com.kodilla.repository.TitleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TitleMapper {
+
+    private final TitleRepository titleRepository;
 
     public Title mapToTitle(final TitleDto titleDto) {
         return new Title(
